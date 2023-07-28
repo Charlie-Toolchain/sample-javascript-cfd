@@ -35,6 +35,13 @@ jobs:
       - run:
           name: Run tests
           command: yarn run test:unit
+  deploy:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run: echo "hi Jira"
+    working_directory: ~/repo
 
 workflows:
   # Below is the definition of your workflow.
