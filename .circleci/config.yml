@@ -17,7 +17,7 @@ orbs:
 
 jobs:
   # Below is the definition of your job to test your Node app. You can rename and customize it as you want.
-  test:
+  build:
     # These next lines define a docker executor: https://circleci.com/docs/2.0/executor-types/
     # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # A list of available CircleCI docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/node
@@ -35,12 +35,16 @@ jobs:
       - run:
           name: Run tests
           command: yarn run test:unit
+    post-steps:
+      - jira/notify # Runs the Jira's "notify" commands after a build has finished its
   deploy:
     docker:
       - image: circleci/node:10
     steps:
       - checkout
       - run: echo "hi Jira"
+    post-steps:
+      - jira/notify # Runs the Jira's "notify" commands after a build has finished its
     working_directory: ~/repo
 
 workflows:
