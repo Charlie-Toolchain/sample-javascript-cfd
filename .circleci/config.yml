@@ -35,14 +35,12 @@ jobs:
       - run:
           name: Run tests
           command: yarn run test:unit
-      - jira/notify # Runs the Jira's "notify" commands after a build has finished its
   deploy:
     docker:
       - image: circleci/node:10
     steps:
       - checkout
       - run: echo "hi Jira"
-      - jira/notify # Runs the Jira's "notify" commands after a build has finished its
     working_directory: ~/repo
 
 workflows:
@@ -53,10 +51,10 @@ workflows:
   sample:
     jobs:
       - build
+        post-steps:
+            - jira/notify # Runs the Jira's "notify" commands after a build has finished its
       - deploy
-      - cypress/run:
-          executor: "node-cypress"
-          command: yarn run test:e2e --headless
-          yarn: true
+        post-steps:
+            - jira/notify # Runs the Jira's "notify" commands after a deploy has finished its
       # For running simple node tests, you could optionally instead use the node/test job from the orb to replicate and replace the manually defined "test" job above in fewer lines.
       # - node/test
