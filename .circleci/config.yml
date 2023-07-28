@@ -35,7 +35,6 @@ jobs:
       - run:
           name: Run tests
           command: yarn run test:unit
-    post-steps:
       - jira/notify # Runs the Jira's "notify" commands after a build has finished its
   deploy:
     docker:
@@ -43,7 +42,6 @@ jobs:
     steps:
       - checkout
       - run: echo "hi Jira"
-    post-steps:
       - jira/notify # Runs the Jira's "notify" commands after a build has finished its
     working_directory: ~/repo
 
