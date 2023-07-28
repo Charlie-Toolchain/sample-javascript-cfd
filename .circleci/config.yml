@@ -51,6 +51,7 @@ workflows:
   sample:
     jobs:
       - test
+      - deploy
       - cypress/run:
           executor: "node-cypress"
           command: yarn run test:e2e --headless
