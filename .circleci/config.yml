@@ -51,10 +51,10 @@ workflows:
   sample:
     jobs:
       - build
-        post-steps:
-            - jira/notify # Runs the Jira's "notify" commands after a build has finished its
-      - deploy
-        post-steps:
-            - jira/notify # Runs the Jira's "notify" commands after a deploy has finished its
-      # For running simple node tests, you could optionally instead use the node/test job from the orb to replicate and replace the manually defined "test" job above in fewer lines.
+      - deploy:
+          name: Dev East
+          post-steps:
+            - jira/notify:
+                environment_type: development
+                job_type: deployment
       # - node/test
